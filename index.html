@@ -1,0 +1,1144 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>NationsGlory — L'Univers des Conservateurs</title>
+    <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600;700;900&family=Crimson+Pro:wght@300;400;600&family=EB+Garamond:wght@400;500;700&display=swap" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/lucide@0.263.1/dist/umd/lucide.min.js"></script>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --bg-primary: #0a0604;
+            --bg-secondary: #1a120e;
+            --bg-tertiary: #2a1f18;
+            --gold: #d4af37;
+            --gold-dark: #8b7523;
+            --gold-light: #f4d03f;
+            --green-dark: #1a3a2e;
+            --green-accent: #2d5a4a;
+            --red-dark: #5c1a1a;
+            --red-accent: #8b2525;
+            --text-primary: #e8dcc4;
+            --text-secondary: #b8a991;
+            --border-gold: rgba(212, 175, 55, 0.3);
+        }
+
+        body {
+            background-color: var(--bg-primary);
+            color: var(--text-primary);
+            font-family: 'Crimson Pro', serif;
+            line-height: 1.7;
+            overflow-x: hidden;
+        }
+
+        /* Texture de fond alchimique */
+        body::before {
+            content: '';
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: 
+                radial-gradient(circle at 20% 30%, rgba(212, 175, 55, 0.03) 0%, transparent 50%),
+                radial-gradient(circle at 80% 70%, rgba(45, 90, 74, 0.05) 0%, transparent 50%),
+                url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" width="400" height="400"><filter id="noise"><feTurbulence type="fractalNoise" baseFrequency="0.9" numOctaves="4" /></filter><rect width="400" height="400" filter="url(%23noise)" opacity="0.03"/></svg>');
+            pointer-events: none;
+            z-index: 1;
+        }
+
+        .content-wrapper {
+            position: relative;
+            z-index: 2;
+        }
+
+        /* Navigation */
+        nav {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            background: linear-gradient(to bottom, var(--bg-secondary), rgba(26, 18, 14, 0.95));
+            backdrop-filter: blur(10px);
+            border-bottom: 2px solid var(--border-gold);
+            padding: 1.5rem 2rem;
+            z-index: 100;
+            box-shadow: 0 4px 30px rgba(0, 0, 0, 0.5);
+        }
+
+        nav::after {
+            content: '';
+            position: absolute;
+            bottom: -2px;
+            left: 0;
+            right: 0;
+            height: 1px;
+            background: linear-gradient(90deg, transparent, var(--gold), transparent);
+        }
+
+        .nav-container {
+            max-width: 1400px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .nav-logo {
+            font-family: 'Cinzel', serif;
+            font-size: 1.8rem;
+            font-weight: 900;
+            color: var(--gold);
+            text-transform: uppercase;
+            letter-spacing: 3px;
+            text-shadow: 0 0 20px rgba(212, 175, 55, 0.4);
+            display: flex;
+            align-items: center;
+            gap: 0.8rem;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 2.5rem;
+            list-style: none;
+        }
+
+        .nav-links a {
+            color: var(--text-secondary);
+            text-decoration: none;
+            font-family: 'Cinzel', serif;
+            font-size: 1rem;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 1.5px;
+            position: relative;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .nav-links a::after {
+            content: '';
+            position: absolute;
+            bottom: -5px;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background: var(--gold);
+            transition: width 0.3s ease;
+        }
+
+        .nav-links a:hover {
+            color: var(--gold-light);
+            text-shadow: 0 0 10px rgba(212, 175, 55, 0.3);
+        }
+
+        .nav-links a:hover::after {
+            width: 100%;
+        }
+
+        .nav-links a.active {
+            color: var(--gold);
+        }
+
+        /* Sections */
+        section {
+            min-height: 100vh;
+            padding: 8rem 2rem 4rem;
+            display: none;
+        }
+
+        section.active {
+            display: block;
+        }
+
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+
+        /* Hero Section */
+        .hero {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            min-height: 100vh;
+            padding-top: 0;
+            position: relative;
+        }
+
+        .hero::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 800px;
+            height: 800px;
+            background: radial-gradient(circle, rgba(212, 175, 55, 0.08) 0%, transparent 70%);
+            pointer-events: none;
+            animation: pulse 8s ease-in-out infinite;
+        }
+
+        @keyframes pulse {
+            0%, 100% { opacity: 0.3; transform: translateX(-50%) scale(1); }
+            50% { opacity: 0.6; transform: translateX(-50%) scale(1.1); }
+        }
+
+        .hero-content {
+            position: relative;
+            z-index: 2;
+        }
+
+        .hero-icon {
+            margin-bottom: 2rem;
+            animation: float 6s ease-in-out infinite;
+        }
+
+        @keyframes float {
+            0%, 100% { transform: translateY(0px); }
+            50% { transform: translateY(-20px); }
+        }
+
+        .hero h1 {
+            font-family: 'Cinzel', serif;
+            font-size: clamp(3rem, 8vw, 6.5rem);
+            font-weight: 900;
+            color: var(--gold);
+            text-transform: uppercase;
+            letter-spacing: 8px;
+            margin-bottom: 1.5rem;
+            text-shadow: 
+                0 0 40px rgba(212, 175, 55, 0.4),
+                0 4px 8px rgba(0, 0, 0, 0.6);
+            animation: fadeInUp 1s ease-out;
+        }
+
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .hero-subtitle {
+            font-family: 'EB Garamond', serif;
+            font-size: clamp(1.2rem, 2.5vw, 1.8rem);
+            color: var(--text-secondary);
+            font-style: italic;
+            margin-bottom: 3rem;
+            max-width: 800px;
+            animation: fadeInUp 1s ease-out 0.2s backwards;
+        }
+
+        .hero-description {
+            font-size: 1.2rem;
+            line-height: 2;
+            max-width: 900px;
+            margin: 0 auto 3rem;
+            color: var(--text-primary);
+            animation: fadeInUp 1s ease-out 0.4s backwards;
+        }
+
+        .faction-intro {
+            display: flex;
+            gap: 2rem;
+            justify-content: center;
+            margin-top: 4rem;
+            flex-wrap: wrap;
+            animation: fadeInUp 1s ease-out 0.6s backwards;
+        }
+
+        .faction-badge {
+            padding: 1rem 2rem;
+            border: 2px solid var(--border-gold);
+            background: rgba(42, 31, 24, 0.6);
+            backdrop-filter: blur(10px);
+            border-radius: 4px;
+            font-family: 'Cinzel', serif;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            font-size: 0.95rem;
+            transition: all 0.3s ease;
+        }
+
+        .faction-badge.gold {
+            border-color: var(--gold);
+            color: var(--gold);
+        }
+
+        .faction-badge.red {
+            border-color: var(--red-accent);
+            color: #c74545;
+        }
+
+        .faction-badge.blue {
+            border-color: #4a7c9e;
+            color: #6ba3ce;
+        }
+
+        .faction-badge:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+        }
+
+        .cta-buttons {
+            display: flex;
+            gap: 1.5rem;
+            justify-content: center;
+            margin-top: 3rem;
+            flex-wrap: wrap;
+        }
+
+        .btn {
+            padding: 1.2rem 3rem;
+            font-family: 'Cinzel', serif;
+            font-size: 1rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            border: 2px solid var(--gold);
+            background: linear-gradient(135deg, var(--bg-tertiary), var(--bg-secondary));
+            color: var(--gold);
+            cursor: pointer;
+            transition: all 0.4s ease;
+            position: relative;
+            overflow: hidden;
+            text-decoration: none;
+            display: inline-block;
+        }
+
+        .btn::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(212, 175, 55, 0.2), transparent);
+            transition: left 0.5s ease;
+        }
+
+        .btn:hover::before {
+            left: 100%;
+        }
+
+        .btn:hover {
+            background: var(--gold-dark);
+            color: var(--bg-primary);
+            box-shadow: 0 0 30px rgba(212, 175, 55, 0.4);
+            transform: translateY(-2px);
+        }
+
+        /* Section Titles */
+        .section-title {
+            font-family: 'Cinzel', serif;
+            font-size: clamp(2.5rem, 5vw, 4rem);
+            font-weight: 900;
+            text-transform: uppercase;
+            letter-spacing: 6px;
+            color: var(--gold);
+            text-align: center;
+            margin-bottom: 1rem;
+            text-shadow: 0 0 30px rgba(212, 175, 55, 0.3);
+        }
+
+        .section-subtitle {
+            font-family: 'EB Garamond', serif;
+            font-size: 1.4rem;
+            font-style: italic;
+            color: var(--text-secondary);
+            text-align: center;
+            margin-bottom: 4rem;
+        }
+
+        /* Factions Grid */
+        .factions-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 3rem;
+            margin-top: 4rem;
+        }
+
+        .faction-card {
+            background: linear-gradient(145deg, var(--bg-secondary), var(--bg-tertiary));
+            border: 2px solid var(--border-gold);
+            padding: 3rem 2.5rem;
+            position: relative;
+            overflow: hidden;
+            transition: all 0.4s ease;
+        }
+
+        .faction-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 4px;
+            background: linear-gradient(90deg, transparent, var(--gold), transparent);
+            transform: translateX(-100%);
+            transition: transform 0.6s ease;
+        }
+
+        .faction-card:hover::before {
+            transform: translateX(100%);
+        }
+
+        .faction-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.6);
+            border-color: var(--gold);
+        }
+
+        .faction-header {
+            display: flex;
+            align-items: center;
+            gap: 1.5rem;
+            margin-bottom: 2rem;
+        }
+
+        .faction-icon {
+            width: 70px;
+            height: 70px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border: 2px solid;
+            border-radius: 50%;
+            transition: all 0.3s ease;
+        }
+
+        .faction-card:hover .faction-icon {
+            transform: rotate(360deg);
+            box-shadow: 0 0 30px currentColor;
+        }
+
+        .faction-card.conservateurs .faction-icon {
+            border-color: var(--gold);
+            color: var(--gold);
+        }
+
+        .faction-card.revolutionnaires .faction-icon {
+            border-color: var(--red-accent);
+            color: #c74545;
+        }
+
+        .faction-card.justice .faction-icon {
+            border-color: #4a7c9e;
+            color: #6ba3ce;
+        }
+
+        .faction-name {
+            font-family: 'Cinzel', serif;
+            font-size: 2rem;
+            font-weight: 900;
+            text-transform: uppercase;
+            letter-spacing: 3px;
+        }
+
+        .faction-card.conservateurs .faction-name {
+            color: var(--gold);
+        }
+
+        .faction-card.revolutionnaires .faction-name {
+            color: #c74545;
+        }
+
+        .faction-card.justice .faction-name {
+            color: #6ba3ce;
+        }
+
+        .faction-tagline {
+            font-family: 'EB Garamond', serif;
+            font-size: 1.1rem;
+            font-style: italic;
+            color: var(--text-secondary);
+            margin-bottom: 1.5rem;
+        }
+
+        .faction-description {
+            color: var(--text-primary);
+            margin-bottom: 2rem;
+            line-height: 1.8;
+        }
+
+        .faction-details {
+            display: flex;
+            flex-direction: column;
+            gap: 1rem;
+        }
+
+        .detail-item {
+            display: flex;
+            gap: 1rem;
+            padding: 1rem;
+            background: rgba(0, 0, 0, 0.3);
+            border-left: 3px solid;
+        }
+
+        .faction-card.conservateurs .detail-item {
+            border-color: var(--gold);
+        }
+
+        .faction-card.revolutionnaires .detail-item {
+            border-color: var(--red-accent);
+        }
+
+        .faction-card.justice .detail-item {
+            border-color: #4a7c9e;
+        }
+
+        .detail-label {
+            font-family: 'Cinzel', serif;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            font-size: 0.9rem;
+            min-width: 120px;
+        }
+
+        .detail-text {
+            color: var(--text-secondary);
+        }
+
+        /* Character Section */
+        .character-container {
+            max-width: 1100px;
+            margin: 0 auto;
+        }
+
+        .character-header {
+            text-align: center;
+            margin-bottom: 4rem;
+            padding: 3rem;
+            background: linear-gradient(145deg, var(--bg-secondary), var(--bg-tertiary));
+            border: 3px solid var(--gold);
+            position: relative;
+        }
+
+        .character-header::before,
+        .character-header::after {
+            content: '';
+            position: absolute;
+            width: 30px;
+            height: 30px;
+            border: 3px solid var(--gold);
+        }
+
+        .character-header::before {
+            top: -3px;
+            left: -3px;
+            border-right: none;
+            border-bottom: none;
+        }
+
+        .character-header::after {
+            bottom: -3px;
+            right: -3px;
+            border-left: none;
+            border-top: none;
+        }
+
+        .character-shield {
+            width: 120px;
+            height: 120px;
+            margin: 0 auto 2rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border: 4px solid var(--gold);
+            background: radial-gradient(circle, var(--bg-tertiary), var(--bg-secondary));
+            clip-path: polygon(50% 0%, 100% 25%, 100% 75%, 50% 100%, 0% 75%, 0% 25%);
+            box-shadow: 0 0 40px rgba(212, 175, 55, 0.3);
+        }
+
+        .character-name {
+            font-family: 'Cinzel', serif;
+            font-size: 3.5rem;
+            font-weight: 900;
+            text-transform: uppercase;
+            letter-spacing: 6px;
+            color: var(--gold);
+            margin-bottom: 1rem;
+            text-shadow: 0 0 30px rgba(212, 175, 55, 0.4);
+        }
+
+        .character-title {
+            font-family: 'EB Garamond', serif;
+            font-size: 1.6rem;
+            font-style: italic;
+            color: var(--text-secondary);
+        }
+
+        .character-content {
+            display: grid;
+            gap: 3rem;
+        }
+
+        .character-section {
+            background: linear-gradient(145deg, var(--bg-secondary), var(--bg-tertiary));
+            border-left: 4px solid var(--gold);
+            padding: 2.5rem;
+            position: relative;
+        }
+
+        .character-section::before {
+            content: attr(data-icon);
+            position: absolute;
+            top: 2.5rem;
+            right: 2.5rem;
+            font-size: 4rem;
+            opacity: 0.1;
+            color: var(--gold);
+        }
+
+        .character-section h3 {
+            font-family: 'Cinzel', serif;
+            font-size: 1.8rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 3px;
+            color: var(--gold);
+            margin-bottom: 1.5rem;
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+        }
+
+        .character-section p {
+            color: var(--text-primary);
+            line-height: 2;
+            margin-bottom: 1rem;
+        }
+
+        .character-section ul {
+            list-style: none;
+            display: flex;
+            flex-direction: column;
+            gap: 1rem;
+            margin-top: 1.5rem;
+        }
+
+        .character-section li {
+            padding-left: 2rem;
+            position: relative;
+            color: var(--text-primary);
+            line-height: 1.8;
+        }
+
+        .character-section li::before {
+            content: '⚜';
+            position: absolute;
+            left: 0;
+            color: var(--gold);
+            font-size: 1.2rem;
+        }
+
+        .relations-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+            margin-top: 2rem;
+        }
+
+        .relation-card {
+            background: rgba(0, 0, 0, 0.4);
+            padding: 1.5rem;
+            border: 2px solid var(--border-gold);
+            transition: all 0.3s ease;
+        }
+
+        .relation-card:hover {
+            border-color: var(--gold);
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+        }
+
+        .relation-card h4 {
+            font-family: 'Cinzel', serif;
+            font-size: 1.2rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            margin-bottom: 1rem;
+            display: flex;
+            align-items: center;
+            gap: 0.8rem;
+        }
+
+        .relation-card.vs-revos h4 {
+            color: #c74545;
+        }
+
+        .relation-card.vs-justice h4 {
+            color: #6ba3ce;
+        }
+
+        /* Scroll Animation */
+        [data-animate] {
+            opacity: 0;
+            transform: translateY(30px);
+            transition: all 0.8s ease-out;
+        }
+
+        [data-animate].in-view {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .nav-logo {
+                font-size: 1.3rem;
+                letter-spacing: 2px;
+            }
+
+            .nav-links {
+                gap: 1rem;
+            }
+
+            .nav-links a {
+                font-size: 0.8rem;
+            }
+
+            .nav-links .icon {
+                display: none;
+            }
+
+            .hero h1 {
+                letter-spacing: 4px;
+            }
+
+            .factions-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .character-name {
+                font-size: 2.5rem;
+                letter-spacing: 3px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <nav>
+        <div class="nav-container">
+            <div class="nav-logo">
+                <i data-lucide="flask-conical"></i>
+                NationsGlory
+            </div>
+            <ul class="nav-links">
+                <li><a href="#accueil" class="nav-link active" data-page="accueil">
+                    <i data-lucide="home" class="icon"></i>
+                    <span>Accueil</span>
+                </a></li>
+                <li><a href="#factions" class="nav-link" data-page="factions">
+                    <i data-lucide="swords" class="icon"></i>
+                    <span>Factions</span>
+                </a></li>
+                <li><a href="#personnage" class="nav-link" data-page="personnage">
+                    <i data-lucide="shield" class="icon"></i>
+                    <span>Personnage</span>
+                </a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <div class="content-wrapper">
+        <!-- ACCUEIL -->
+        <section id="accueil" class="active">
+            <div class="hero">
+                <div class="hero-content">
+                    <div class="hero-icon">
+                        <i data-lucide="flask-conical" style="width: 120px; height: 120px; color: var(--gold); opacity: 0.8;"></i>
+                    </div>
+                    <h1>NationsGlory</h1>
+                    <p class="hero-subtitle">L'Univers des Conservateurs</p>
+                    <p class="hero-description">
+                        Dans un monde où les alcools forgent le destin des nations, trois factions s'affrontent dans l'ombre. 
+                        Les Conservateurs gardent jalousement les secrets millénaires de la distillation, 
+                        tandis que les Révolutionnaires complotent pour renverser l'ordre ancien. 
+                        Entre eux, la Justice traque impitoyablement tout commerce illicite.
+                    </p>
+
+                    <div class="faction-intro">
+                        <div class="faction-badge gold">⚜ Les Conservateurs</div>
+                        <div class="faction-badge red">⚔ Les Révolutionnaires</div>
+                        <div class="faction-badge blue">⚖ La Justice</div>
+                    </div>
+
+                    <div class="cta-buttons">
+                        <a href="#factions" class="btn nav-link" data-page="factions">Découvrir les Factions</a>
+                        <a href="#personnage" class="btn nav-link" data-page="personnage">Rencontrer Gartin HAMMAR</a>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- FACTIONS -->
+        <section id="factions">
+            <div class="container">
+                <h2 class="section-title" data-animate>Les Trois Factions</h2>
+                <p class="section-subtitle" data-animate>Forces en présence dans la lutte pour le contrôle des alcools</p>
+
+                <div class="factions-grid">
+                    <!-- Conservateurs -->
+                    <div class="faction-card conservateurs" data-animate>
+                        <div class="faction-header">
+                            <div class="faction-icon">
+                                <i data-lucide="crown" style="width: 40px; height: 40px;"></i>
+                            </div>
+                            <div>
+                                <h3 class="faction-name">Conservateurs</h3>
+                            </div>
+                        </div>
+                        <p class="faction-tagline">« Gardiens de l'Ordre Ancien »</p>
+                        <p class="faction-description">
+                            Héritiers d'une tradition millénaire, les Conservateurs détiennent les secrets de la distillation 
+                            et du commerce des alcools. Organisés en guildes puissantes, ils défendent un système hiérarchique 
+                            strict où seuls les initiés peuvent accéder aux connaissances alchimiques.
+                        </p>
+                        <div class="faction-details">
+                            <div class="detail-item">
+                                <span class="detail-label">Objectif</span>
+                                <span class="detail-text">Préserver les traditions et maintenir leur monopole sur les alcools</span>
+                            </div>
+                            <div class="detail-item">
+                                <span class="detail-label">Philosophie</span>
+                                <span class="detail-text">L'ordre et la hiérarchie garantissent la stabilité du monde</span>
+                            </div>
+                            <div class="detail-item">
+                                <span class="detail-label">Rapport aux alcools</span>
+                                <span class="detail-text">Maîtres absolus : production, distribution, et rituels sacrés</span>
+                            </div>
+                            <div class="detail-item">
+                                <span class="detail-label">Symbole</span>
+                                <span class="detail-text">La couronne dorée sur fond de fioles alchimiques</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Révolutionnaires -->
+                    <div class="faction-card revolutionnaires" data-animate>
+                        <div class="faction-header">
+                            <div class="faction-icon">
+                                <i data-lucide="flame" style="width: 40px; height: 40px;"></i>
+                            </div>
+                            <div>
+                                <h3 class="faction-name">Révolutionnaires</h3>
+                            </div>
+                        </div>
+                        <p class="faction-tagline">« Pour la Liberté des Peuples »</p>
+                        <p class="faction-description">
+                            Nés de la colère populaire, les Révolutionnaires rejettent le monopole des Conservateurs. 
+                            Ils prônent la démocratisation des savoirs alchimiques et combattent dans l'ombre pour 
+                            renverser un système qu'ils jugent oppressif et corrompu.
+                        </p>
+                        <div class="faction-details">
+                            <div class="detail-item">
+                                <span class="detail-label">Objectif</span>
+                                <span class="detail-text">Abolir le système des guildes et libérer les connaissances</span>
+                            </div>
+                            <div class="detail-item">
+                                <span class="detail-label">Philosophie</span>
+                                <span class="detail-text">Le savoir doit appartenir au peuple, pas à une élite</span>
+                            </div>
+                            <div class="detail-item">
+                                <span class="detail-label">Rapport aux alcools</span>
+                                <span class="detail-text">Production clandestine, contrebande, réseau souterrain</span>
+                            </div>
+                            <div class="detail-item">
+                                <span class="detail-label">Symbole</span>
+                                <span class="detail-text">La flamme écarlate brisant les chaînes</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Justice -->
+                    <div class="faction-card justice" data-animate>
+                        <div class="faction-header">
+                            <div class="faction-icon">
+                                <i data-lucide="scale" style="width: 40px; height: 40px;"></i>
+                            </div>
+                            <div>
+                                <h3 class="faction-name">La Justice</h3>
+                            </div>
+                        </div>
+                        <p class="faction-tagline">« L'Ordre par la Loi »</p>
+                        <p class="faction-description">
+                            Force implacable au service de l'État, la Justice traque sans relâche le commerce illégal d'alcools. 
+                            Ni conservateurs ni révolutionnaires, ses agents appliquent la loi avec une rigueur absolue, 
+                            considérant toute désobéissance comme une menace à l'ordre public.
+                        </p>
+                        <div class="faction-details">
+                            <div class="detail-item">
+                                <span class="detail-label">Objectif</span>
+                                <span class="detail-text">Éradiquer tout commerce d'alcool, légal ou non</span>
+                            </div>
+                            <div class="detail-item">
+                                <span class="detail-label">Philosophie</span>
+                                <span class="detail-text">La loi prime sur tout, aucune exception n'est tolérée</span>
+                            </div>
+                            <div class="detail-item">
+                                <span class="detail-label">Rapport aux alcools</span>
+                                <span class="detail-text">Interdiction absolue : confiscation, arrestations, répression</span>
+                            </div>
+                            <div class="detail-item">
+                                <span class="detail-label">Symbole</span>
+                                <span class="detail-text">La balance d'acier sur fond de nuit</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- PERSONNAGE -->
+        <section id="personnage">
+            <div class="container character-container">
+                <div class="character-header">
+                    <div class="character-shield">
+                        <i data-lucide="shield" style="width: 60px; height: 60px; color: var(--gold);"></i>
+                    </div>
+                    <h2 class="character-name">Gartin HAMMAR</h2>
+                    <p class="character-title">Chevalier Conservateur • Membre du Conseil Municipal</p>
+                </div>
+
+                <div class="character-content">
+                    <div class="character-section" data-animate data-icon="📜">
+                        <h3>
+                            <i data-lucide="scroll-text" style="width: 28px; height: 28px;"></i>
+                            Lignée et Héritage
+                        </h3>
+                        <p>
+                            Issu d'une famille de maîtres distillateurs depuis sept générations, Gartin HAMMAR a grandi 
+                            entouré des vapeurs d'alambics et des grimoires ancestraux. Son grand-père, Maître Alchimiste 
+                            de la Guilde Dorée, lui a transmis non seulement les techniques secrètes de distillation, 
+                            mais aussi une philosophie : « L'ordre est la fondation de toute civilisation. »
+                        </p>
+                        <p>
+                            Dès son plus jeune âge, Gartin fut initié aux rituels conservateurs. À quinze ans, il prêta 
+                            serment devant le Conseil des Anciens, jurant de protéger les secrets de la guilde et de 
+                            défendre l'ordre établi contre toute forme de chaos.
+                        </p>
+                    </div>
+
+                    <div class="character-section" data-animate data-icon="⚔">
+                        <h3>
+                            <i data-lucide="sword" style="width: 28px; height: 28px;"></i>
+                            Formation et Ascension
+                        </h3>
+                        <p>
+                            Formé à l'Académie des Chevaliers Conservateurs, Gartin excella dans l'art du combat autant 
+                            que dans la maîtrise alchimique. Son talent lui valut d'être adoubé chevalier à seulement 
+                            vingt-deux ans, une distinction rarissime.
+                        </p>
+                        <p>
+                            Ses faits d'armes contre les contrebandiers révolutionnaires lui ont forgé une réputation 
+                            d'inflexibilité. À trente ans, il fut élu au Conseil Municipal, devenant l'un des plus jeunes 
+                            membres de cette institution millénaire. Aujourd'hui, il siège parmi les décideurs qui façonnent 
+                            l'avenir de la cité.
+                        </p>
+                    </div>
+
+                    <div class="character-section" data-animate data-icon="🎭">
+                        <h3>
+                            <i data-lucide="brain" style="width: 28px; height: 28px;"></i>
+                            Vision et Motivations
+                        </h3>
+                        <p>
+                            Gartin ne voit pas le monde en nuances de gris. Pour lui, il existe un ordre naturel qui doit 
+                            être préservé à tout prix. Les Conservateurs ne sont pas des tyrans, mais des gardiens d'un 
+                            savoir trop dangereux pour être librement partagé.
+                        </p>
+                        <ul>
+                            <li>
+                                <strong>Conviction profonde :</strong> Les secrets alchimiques, entre de mauvaises mains, 
+                                pourraient détruire la civilisation. Seuls les initiés formés dans la tradition peuvent 
+                                manipuler ces forces sans provoquer le chaos.
+                            </li>
+                            <li>
+                                <strong>Méfiance envers les Révolutionnaires :</strong> Il les considère comme des idéalistes 
+                                naïfs et dangereux, prêts à tout sacrifier pour une liberté qu'ils ne comprennent pas.
+                            </li>
+                            <li>
+                                <strong>Position sur la Justice :</strong> Bien qu'il respecte leur rigueur, Gartin juge leurs 
+                                méthodes excessives. La prohibition totale est une erreur ; l'encadrement strict est la solution.
+                            </li>
+                        </ul>
+                    </div>
+
+                    <div class="character-section" data-animate data-icon="⚡">
+                        <h3>
+                            <i data-lucide="users" style="width: 28px; height: 28px;"></i>
+                            Relations avec les Autres Factions
+                        </h3>
+                        <div class="relations-grid">
+                            <div class="relation-card vs-revos">
+                                <h4>
+                                    <i data-lucide="flame" style="width: 24px; height: 24px;"></i>
+                                    Face aux Révolutionnaires
+                                </h4>
+                                <p>
+                                    Gartin ne ressent que mépris pour ceux qu'il appelle « les semeurs de chaos ». 
+                                    Il a personnellement démantelé trois réseaux de contrebande révolutionnaire et 
+                                    n'hésite jamais à employer la force pour les arrêter. Pour lui, leur idéalisme 
+                                    n'est qu'un prétexte pour justifier l'anarchie.
+                                </p>
+                            </div>
+                            <div class="relation-card vs-justice">
+                                <h4>
+                                    <i data-lucide="scale" style="width: 24px; height: 24px;"></i>
+                                    Face à la Justice
+                                </h4>
+                                <p>
+                                    Bien qu'ils partagent un certain respect mutuel pour l'ordre et la discipline, 
+                                    Gartin considère la Justice comme un obstacle. Leur prohibition absolue menace 
+                                    les activités légitimes des Conservateurs. Il joue un jeu diplomatique dangereux, 
+                                    naviguant entre coopération et résistance discrète.
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="character-section" data-animate data-icon="🛡">
+                        <h3>
+                            <i data-lucide="target" style="width: 28px; height: 28px;"></i>
+                            Rôle et Responsabilités
+                        </h3>
+                        <p>
+                            En tant que membre du Conseil Municipal, Gartin influence directement les décisions politiques 
+                            de la cité. Il plaide pour des lois qui renforcent les privilèges des guildes conservatrices 
+                            tout en cherchant à affaiblir l'emprise de la Justice.
+                        </p>
+                        <p>
+                            Sur le terrain, il mène des opérations secrètes contre les révolutionnaires, coordonnant 
+                            les chevaliers conservateurs dans une guerre de l'ombre. Son objectif ultime : écraser 
+                            définitivement la rébellion et restaurer l'ordre ancien dans toute sa gloire.
+                        </p>
+                        <p style="font-family: 'EB Garamond', serif; font-style: italic; color: var(--gold); margin-top: 2rem; text-align: center; font-size: 1.2rem;">
+                            « L'ordre n'est pas négociable. Il est le fondement sur lequel repose notre civilisation. 
+                            Ceux qui le menacent méritent la lame, pas la pitié. »
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </div>
+
+    <script>
+        // Initialize Lucide icons
+        lucide.createIcons();
+
+        // Navigation
+        const navLinks = document.querySelectorAll('.nav-link');
+        const sections = document.querySelectorAll('section');
+
+        function showPage(pageId) {
+            sections.forEach(section => {
+                section.classList.remove('active');
+            });
+            
+            const targetSection = document.getElementById(pageId);
+            if (targetSection) {
+                targetSection.classList.add('active');
+                
+                // Reset and trigger animations for the new page
+                const animatedElements = targetSection.querySelectorAll('[data-animate]');
+                animatedElements.forEach((el, index) => {
+                    el.classList.remove('in-view');
+                    setTimeout(() => {
+                        el.classList.add('in-view');
+                    }, index * 100);
+                });
+            }
+
+            navLinks.forEach(link => {
+                link.classList.remove('active');
+                if (link.dataset.page === pageId) {
+                    link.classList.add('active');
+                }
+            });
+
+            // Scroll to top
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
+
+        navLinks.forEach(link => {
+            link.addEventListener('click', (e) => {
+                e.preventDefault();
+                const pageId = link.dataset.page;
+                showPage(pageId);
+                
+                // Update URL hash
+                history.pushState(null, '', `#${pageId}`);
+            });
+        });
+
+        // Handle browser back/forward
+        window.addEventListener('popstate', () => {
+            const hash = window.location.hash.slice(1) || 'accueil';
+            showPage(hash);
+        });
+
+        // Initial page load
+        window.addEventListener('load', () => {
+            const hash = window.location.hash.slice(1) || 'accueil';
+            showPage(hash);
+        });
+
+        // Scroll animations
+        const observerOptions = {
+            threshold: 0.1,
+            rootMargin: '0px 0px -100px 0px'
+        };
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('in-view');
+                }
+            });
+        }, observerOptions);
+
+        document.querySelectorAll('[data-animate]').forEach(el => {
+            observer.observe(el);
+        });
+
+        // Particle effect on hero (optional enhancement)
+        const hero = document.querySelector('.hero');
+        if (hero) {
+            for (let i = 0; i < 15; i++) {
+                const particle = document.createElement('div');
+                particle.style.cssText = `
+                    position: absolute;
+                    width: 2px;
+                    height: 2px;
+                    background: var(--gold);
+                    border-radius: 50%;
+                    top: ${Math.random() * 100}%;
+                    left: ${Math.random() * 100}%;
+                    opacity: ${Math.random() * 0.3};
+                    animation: float ${5 + Math.random() * 10}s ease-in-out infinite;
+                    animation-delay: ${Math.random() * 5}s;
+                `;
+                hero.appendChild(particle);
+            }
+        }
+    </script>
+</body>
+</html>
